@@ -60,7 +60,18 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        
+        if (user != null) {
+            if (user.getRole() == 1) {
+                response.sendRedirect("admin");
+            } else {
+                response.sendRedirect("home");
+            }
+        } else {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -88,7 +99,11 @@ public class LoginServlet extends HttpServlet {
             if (redirectParam != null && !redirectParam.isEmpty()) {
                 response.sendRedirect(redirectParam);
             } else {
-                response.sendRedirect("home");
+                if (u.getRole() == 1) {
+                    response.sendRedirect("admin");
+                } else {
+                    response.sendRedirect("home");
+                }
             }
         }
     }
