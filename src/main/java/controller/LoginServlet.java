@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
@@ -57,7 +60,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**
@@ -71,7 +74,23 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        UserDAO dao = new UserDAO();
+        String email = request.getParameter("email");
+        String password = request.getParameter("pass");
+        User u = dao.loginByEmail(email, password);
+
+        if (u.getUserId() == -1) {
+            response.sendRedirect("login");
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", u);
+            String redirectParam = request.getParameter("redirect");
+            if (redirectParam != null && !redirectParam.isEmpty()) {
+                response.sendRedirect(redirectParam);
+            } else {
+                response.sendRedirect("home");
+            }
+        }
     }
 
     /**
