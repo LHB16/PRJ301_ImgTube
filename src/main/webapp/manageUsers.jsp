@@ -22,6 +22,12 @@
             <c:if test="${param.msg == 'error'}">
                 <p style="color: red;">Thao tác thất bại!</p>
             </c:if>
+            <c:if test="${param.msg == 'cannot_ban_admin'}">
+                <p style="color: orange;">Không thể ban tài khoản admin khác!</p>
+            </c:if>
+            <c:if test="${param.msg == 'cannot_ban_self'}">
+                <p style="color: orange;">Không thể ban chính mình!</p>
+            </c:if>
         </c:if>
         
         <table border="1">
@@ -53,10 +59,15 @@
                         </c:if>
                     </td>
                     <td>
-                        <a href="admin?action=toggleUserStatus&userId=${user.userId}&currentStatus=${user.status}">
-                            <c:if test="${user.status == 1}">Ban</c:if>
-                            <c:if test="${user.status == 0}">Unban</c:if>
-                        </a>
+                        <c:if test="${user.role == 1}">
+                            <span style="color: gray;">Admin</span>
+                        </c:if>
+                        <c:if test="${user.role == 0}">
+                            <a href="admin?action=toggleUserStatus&userId=${user.userId}&currentStatus=${user.status}">
+                                <c:if test="${user.status == 1}">Ban</c:if>
+                                <c:if test="${user.status == 0}">Unban</c:if>
+                            </a>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>
