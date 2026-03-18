@@ -157,6 +157,28 @@ public class UserDAO extends DBContext {
         return list;
     }
 
+    public User getUserByID(int userId) {
+        User u = new User();
+        String sql = "select * from Users where userID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                u.setUserId(rs.getInt("userID"));
+                u.setUsername(rs.getString("username"));
+                u.setPassword(rs.getString("password"));
+                u.setFullName(rs.getString("fullName"));
+                u.setEmail(rs.getString("email"));
+                u.setRole(rs.getInt("role"));
+                u.setStatus(rs.getInt("status"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return u;
+    }
+
     public boolean changeUserStatus(int userId, int newStatus) {
         String sql = "UPDATE Users SET status = ? WHERE userID = ?";
         try {
