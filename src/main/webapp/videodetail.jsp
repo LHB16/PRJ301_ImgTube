@@ -30,7 +30,7 @@
     &nbsp;
     <c:choose>
         <c:when test="${sessionScope.account == null}">
-            <a href="login.jsp">[Đăng ký]</a>
+            <a href="login">[Đăng ký]</a>
         </c:when>
         <c:when test="${sessionScope.account.userId == video.user.userId}">
             [Kênh của bạn]
