@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dao.SubscriptionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
@@ -71,7 +74,29 @@ public class SubscribeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("account") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        User u = (User) session.getAttribute("account");
+        int channelOwnerId = Integer.parseInt(request.getParameter("channelOwnerId"));
+        int videoId = Integer.parseInt(request.getParameter("videoId"));
+
+        if (u.getUserId() == channelOwnerId) {
+            response.sendRedirect("videodetail?id=" + videoId);
+            return;
+        }
+
+        SubscriptionDAO dao = new SubscriptionDAO();
+        if (dao.isSubscribed(u.getUserId(), channelOwnerId)) {
+            dao.unsubscribe(u.getUserId(), channelOwnerId);
+        } else {
+            dao.subscribe(u.getUserId(), channelOwnerId);
+        }
+        response.sendRedirect("videodetail?id=" + videoId);
     }
 
     /**
