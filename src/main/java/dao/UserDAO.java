@@ -79,6 +79,31 @@ public class UserDAO extends DBContext {
         return u;
     }
 
+    public User getUserByEmailOnly(String email) {
+        User u = new User();
+        String sql = "select * from Users where email = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                u.setUserId(rs.getInt("userID"));
+                u.setUsername(rs.getString("username"));
+                u.setPassword(rs.getString("password"));
+                u.setFullName(rs.getString("fullName"));
+                u.setEmail(rs.getString("email"));
+                u.setRole(rs.getInt("role"));
+                u.setStatus(rs.getInt("status"));
+            } else {
+                u.setUserId(-1); // User not found
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            u.setUserId(-1);
+        }
+        return u;
+    }
+
     public User loginByEmail(String email, String password) {
         User u = new User();
         String sql = "select * from Users where email = ? and password = ?";

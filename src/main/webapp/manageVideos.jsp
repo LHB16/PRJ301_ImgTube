@@ -10,10 +10,40 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         <title>Quản lý Video</title>
+        <style>
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+                border-bottom: 1px solid #ddd;
+            }
+            .logout-btn {
+                background-color: #dc3545;
+                color: white;
+                padding: 8px 16px;
+                text-decoration: none;
+                border-radius: 4px;
+                border: none;
+                cursor: pointer;
+            }
+            .logout-btn:hover {
+                background-color: #c82333;
+            }
+        </style>
     </head>
     <body>
-        <h1>Quản lý Video</h1>
+        <div class="header">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <h1 style="margin: 0;">Quản lý Video</h1>
+            </div>
+            <div style="display: flex; align-items: center; gap: 40px;">
+                <a href="admin" style="text-decoration: none; color: #007bff; font-size: 16px;">← Back</a>
+                <a href="admin?action=logout" class="logout-btn">Logout</a>
+            </div>
+        </div>
         
         <c:if test="${not empty param.msg}">
             <c:if test="${param.msg == 'success'}">

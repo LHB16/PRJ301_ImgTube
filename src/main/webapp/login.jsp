@@ -43,7 +43,14 @@
                             <button type="submit">Login</button>
                         </div>
                     </form>
+                    
                     <p>Don't have an account? <a href="register">Register</a></p>
+                    <!-- thông báo ban nè bình -->
+                    <c:if test="${not empty errorMsg}">
+                        <div style="color: red; margin-bottom: 15px; padding: 10px; border: 1px solid #f8d7da; background-color: #f8d7da; border-radius: 4px;">
+                            ${errorMsg}
+                        </div>
+                    </c:if>
                 </div>
             </div>
 
