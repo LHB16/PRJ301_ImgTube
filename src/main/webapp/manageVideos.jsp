@@ -27,6 +27,7 @@
         <table border="1">
             <tr>
                 <th>ID</th>
+                <th>Thumbnail</th>
                 <th>Tiêu đề</th>
                 <th>Mô tả</th>
                 <th>Ngày đăng</th>
@@ -36,6 +37,9 @@
             <c:forEach items="${videos}" var="video">
                 <tr>
                     <td>${video.videoId}</td>
+                    <td>
+                        <img iframe src="${video.urlThumbnail}" width="150" ></iframe>
+                    </td>
                     <td>${video.title}</td>
                     <td>${video.description}</td>
                     <td>${video.uploadDate}</td>
