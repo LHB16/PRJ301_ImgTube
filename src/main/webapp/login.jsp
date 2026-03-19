@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,7 +30,7 @@
                 <div class="w-50">
                     <h1>Login</h1>
                     <form method="post" action="login">
-                        <input type="hidden" name="redirect" value="<c:out value="${param.redirect}"/>
+                        <input type="hidden" name="redirect" value="<c:out value="${param.redirect}"/>">
                         <div>
                             <label>Email:</label><br>
                             <input type="email" name="email" required>
