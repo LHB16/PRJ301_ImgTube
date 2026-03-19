@@ -33,25 +33,24 @@ public class VideoDAO extends DBContext {
 
     public java.util.List<Video> getAllVideos() {
         java.util.List<Video> list = new java.util.ArrayList<>();
-        String sql = "SELECT * FROM Videos ORDER BY uploadDate DESC";
+//        String sql = "SELECT * FROM Videos ORDER BY uploadDate DESC";
+        String sql = "SELECT        Categories.categoryID, Categories.categoryName, Users.username, Users.userID, Users.fullName, Videos.videoID, Videos.title, Videos.description, Videos.urlThumbnail, Videos.uploadDate, Videos.status\n"
+                + "FROM            Categories INNER JOIN\n"
+                + "                         Videos ON Categories.categoryID = Videos.categoryID INNER JOIN\n"
+                + "                         Users ON Videos.userID = Users.userID\n"
+                + "ORDER BY Videos.uploadDate DESC";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Video v = new Video();
-                v.setVideoId(rs.getInt("videoID"));
-                v.setTitle(rs.getString("title"));
-                v.setDescription(rs.getString("description"));
-                v.setUploadDate(rs.getDate("uploadDate"));
-                v.setStatus(rs.getInt("status"));
-                // Cần set user và category nếu cần
+
                 User user = new User();
                 user.setUserId(rs.getInt("userID"));
                 user.setUsername(rs.getString("username"));
                 user.setFullName(rs.getString("fullname"));
                 Category cat = new Category();
                 cat.setCategoryId(rs.getInt("categoryID"));
-                cat.setCategoryName(rs.getString("categogyName"));
+                cat.setCategoryName(rs.getString("categoryName"));
 
                 Video video = new Video();
                 video.setVideoId(rs.getInt("videoID"));
@@ -109,5 +108,13 @@ public class VideoDAO extends DBContext {
 
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        VideoDAO dao = new VideoDAO();
+        for (Video v : dao.getAllVideos()) {
+            System.out.println(v);
+        }
+
     }
 }
