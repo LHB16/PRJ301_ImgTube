@@ -59,7 +59,7 @@
         </form>
     </c:when>
     <c:otherwise>
-        <p><a href="login.jsp">Đăng nhập</a> để bình luận.</p>
+        <p><a href="login">Đăng nhập</a> để bình luận.</p>
     </c:otherwise>
 </c:choose>
 
