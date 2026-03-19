@@ -4,6 +4,11 @@
  */
 package controller;
 
+import dao.CommentDAO;
+import dao.SubscriptionDAO;
+import dao.VideoDAO;
+import model.User;
+import model.Video;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -57,7 +63,38 @@ public class VideoDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String idStr = request.getParameter("id");
+        if (idStr == null) {
+            response.sendRedirect("home");
+            return;
+        }
+
+        int videoId = Integer.parseInt(idStr);
+
+        VideoDAO videoDAO = new VideoDAO();
+        CommentDAO commentDAO = new CommentDAO();
+        SubscriptionDAO subDAO = new SubscriptionDAO();
+
+        Video video = videoDAO.getVideoById(videoId);
+        if (video == null) {
+            response.sendRedirect("home");
+            return;
+        }
+
+        request.setAttribute("video", video);
+        request.setAttribute("comments", commentDAO.getCommentsByVideoId(videoId));
+        request.setAttribute("subscriberCount", subDAO.countSubscribers(video.getUser().getUserId()));
+
+        boolean isSubscribed = false;
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("account") != null) {
+            User u = (User) session.getAttribute("account");
+            isSubscribed = subDAO.isSubscribed(u.getUserId(), video.getUser().getUserId());
+        }
+        request.setAttribute("isSubscribed", isSubscribed);
+
+        request.getRequestDispatcher("videodetail.jsp").forward(request, response);
     }
 
     /**
@@ -71,7 +108,22 @@ public class VideoDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("account") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        User u = (User) session.getAttribute("account");
+        int videoId = Integer.parseInt(request.getParameter("videoId"));
+        String content = request.getParameter("content");
+
+        if (content != null && !content.trim().isEmpty()) {
+            new CommentDAO().addComment(videoId, u.getUserId(), content.trim());
+        }
+        response.sendRedirect("videodetail?id=" + videoId);
     }
 
     /**
