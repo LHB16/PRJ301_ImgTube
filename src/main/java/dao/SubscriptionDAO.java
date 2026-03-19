@@ -4,15 +4,19 @@
  */
 package dao;
 
+<<<<<<< HEAD
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import util.DBContext;
 
+=======
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 /**
  *
  * @author luuhu
  */
+<<<<<<< HEAD
 public class SubscriptionDAO extends DBContext {
 
     public boolean isSubscribed(int subscriberId, int channelOwnerId) {
@@ -69,4 +73,8 @@ public class SubscriptionDAO extends DBContext {
         }
         return 0;
     }
+=======
+public class SubscriptionDAO {
+    
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 }

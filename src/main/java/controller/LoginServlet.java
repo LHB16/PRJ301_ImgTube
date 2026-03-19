@@ -4,6 +4,10 @@
  */
 package controller;
 
+<<<<<<< HEAD
+=======
+import dao.UserDAO;
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +15,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+<<<<<<< HEAD
+=======
+import jakarta.servlet.http.HttpSession;
+import model.User;
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 
 /**
  *
@@ -57,7 +66,22 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         processRequest(request, response);
+=======
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        
+        if (user != null) {
+            if (user.getRole() == 1) {
+                response.sendRedirect("admin");
+            } else {
+                response.sendRedirect("home");
+            }
+        } else {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     }
 
     /**
@@ -71,7 +95,31 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         processRequest(request, response);
+=======
+        UserDAO dao = new UserDAO();
+        String email = request.getParameter("email");
+        String password = request.getParameter("pass");
+        User u = dao.loginByEmail(email, password);
+
+        if (u.getUserId() == -1) {
+            response.sendRedirect("login");
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", u);
+            String redirectParam = request.getParameter("redirect");
+            if (redirectParam != null && !redirectParam.isEmpty()) {
+                response.sendRedirect(redirectParam);
+            } else {
+                if (u.getRole() == 1) {
+                    response.sendRedirect("admin");
+                } else {
+                    response.sendRedirect("home");
+                }
+            }
+        }
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     }
 
     /**

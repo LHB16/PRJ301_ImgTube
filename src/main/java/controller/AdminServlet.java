@@ -11,6 +11,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+<<<<<<< HEAD
+=======
+import jakarta.servlet.http.HttpSession;
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 
 /**
  *
@@ -30,6 +34,7 @@ public class AdminServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -46,6 +51,10 @@ public class AdminServlet extends HttpServlet {
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+=======
+    }
+
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -57,7 +66,38 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         processRequest(request, response);
+=======
+        response.setContentType("text/html;charset=UTF-8");
+
+        HttpSession session = request.getSession();
+        model.User user = (model.User) session.getAttribute("user");
+
+        if (user == null || user.getRole() != 1) {
+            response.sendRedirect("login");
+            return;
+        }
+
+        String action = request.getParameter("action");
+
+        if (action == null || action.isEmpty()) {
+            request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+            return;
+        }
+
+        if ("manageVideos".equals(action)) {
+            dao.VideoDAO videoDAO = new dao.VideoDAO();
+            java.util.List<model.Video> videos = videoDAO.getAllVideos();
+            request.setAttribute("videos", videos);
+            request.getRequestDispatcher("manageVideos.jsp").forward(request, response);
+        } else if ("manageUsers".equals(action)) {
+            dao.UserDAO userDAO = new dao.UserDAO();
+            java.util.List<model.User> users = userDAO.getAllUsers();
+            request.setAttribute("users", users);
+            request.getRequestDispatcher("manageUsers.jsp").forward(request, response);
+        }
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     }
 
     /**
@@ -71,7 +111,61 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         processRequest(request, response);
+=======
+        response.setContentType("text/html;charset=UTF-8");
+
+        HttpSession session = request.getSession();
+        model.User user = (model.User) session.getAttribute("user");
+
+        if (user == null || user.getRole() != 1) {
+            response.sendRedirect("login");
+            return;
+        }
+
+        String action = request.getParameter("action");
+
+        if ("toggleVideoStatus".equals(action)) {
+            int videoId = Integer.parseInt(request.getParameter("videoId"));
+            int currentStatus = Integer.parseInt(request.getParameter("currentStatus"));
+            int newStatus = (currentStatus == 1) ? 0 : 1;
+
+            dao.VideoDAO videoDAO = new dao.VideoDAO();
+            boolean success = videoDAO.changeVideoStatus(videoId, newStatus);
+
+            if (success) {
+                response.sendRedirect("admin?action=manageVideos&msg=success");
+            } else {
+                response.sendRedirect("admin?action=manageVideos&msg=error");
+            }
+        } else if ("toggleUserStatus".equals(action)) {
+            int userId = Integer.parseInt(request.getParameter("userId"));
+            int currentStatus = Integer.parseInt(request.getParameter("currentStatus"));
+
+            dao.UserDAO userDAO = new dao.UserDAO();
+            model.User targetUser = userDAO.getUserByID(userId);
+
+            if (targetUser.getRole() == 1 && targetUser.getUserId() != user.getUserId()) {
+                response.sendRedirect("admin?action=manageUsers&msg=cannot_ban_admin");
+                return;
+            }
+
+            if (targetUser.getUserId() == user.getUserId()) {
+                response.sendRedirect("admin?action=manageUsers&msg=cannot_ban_self");
+                return;
+            }
+
+            int newStatus = (currentStatus == 1) ? 0 : 1;
+            boolean success = userDAO.changeUserStatus(userId, newStatus);
+
+            if (success) {
+                response.sendRedirect("admin?action=manageUsers&msg=success");
+            } else {
+                response.sendRedirect("admin?action=manageUsers&msg=error");
+            }
+        }
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     }
 
     /**

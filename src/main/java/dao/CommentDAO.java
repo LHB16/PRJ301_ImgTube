@@ -4,6 +4,7 @@
  */
 package dao;
 
+<<<<<<< HEAD
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,10 +15,13 @@ import model.User;
 import model.Video;
 import util.DBContext;
 
+=======
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 /**
  *
  * @author luuhu
  */
+<<<<<<< HEAD
 public class CommentDAO extends DBContext {
 
     public List<Comment> getCommentsByVideoId(int videoId) {
@@ -69,4 +73,8 @@ public class CommentDAO extends DBContext {
         }
         return false;
     }
+=======
+public class CommentDAO {
+    
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 }

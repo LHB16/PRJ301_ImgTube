@@ -3,7 +3,10 @@ package model;
 import java.util.Date;
 
 public class Video {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     private int videoId;
     private String title;
     private String description;
@@ -11,7 +14,10 @@ public class Video {
     private User user;
     private Category category;
     private int status;
+<<<<<<< HEAD
     private String urlThumbnail;
+=======
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 
     public Video() {
     }
@@ -50,6 +56,10 @@ public class Video {
         this.description = description;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     public Date getUploadDate() {
         return uploadDate;
     }
@@ -82,16 +92,22 @@ public class Video {
         this.status = status;
     }
 
+<<<<<<< HEAD
     public String getUrlThumbnail() {
         return urlThumbnail;
     }
 
+=======
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     @Override
     public String toString() {
         return "Video{" + "videoId=" + videoId + ", title=" + title + ", description=" + description + ", uploadDate=" + uploadDate + ", user=" + user + ", category=" + category + ", status=" + status + '}';
     }
+<<<<<<< HEAD
 
     public void setUrlThumbnail(String urlThumbnail) {
         this.urlThumbnail = urlThumbnail;
     }
+=======
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 }

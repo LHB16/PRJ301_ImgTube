@@ -4,6 +4,10 @@
  */
 package controller;
 
+<<<<<<< HEAD
+=======
+import dao.UserDAO;
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -57,7 +61,11 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         processRequest(request, response);
+=======
+        request.getRequestDispatcher("register.jsp").forward(request, response);
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     }
 
     /**
@@ -71,7 +79,24 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         processRequest(request, response);
+=======
+        UserDAO dao = new UserDAO();
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String fullName = request.getParameter("fullName");
+        String email = request.getParameter("email");
+
+        boolean success = dao.register(username, password, fullName, email);
+
+        if (success) {
+            response.sendRedirect("login");
+        } else {
+            request.setAttribute("error", "Email already exists!");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+        }
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     }
 
     /**

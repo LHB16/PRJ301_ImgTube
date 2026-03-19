@@ -4,9 +4,12 @@
  */
 package controller;
 
+<<<<<<< HEAD
 import dao.CommentDAO;
 import dao.SubscriptionDAO;
 import dao.VideoDAO;
+=======
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,11 +17,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+<<<<<<< HEAD
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Comment;
 import model.User;
 import model.Video;
+=======
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 
 /**
  *
@@ -65,6 +71,7 @@ public class VideoDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
 
         String id = request.getParameter("id");
         if (id == null) {
@@ -101,6 +108,9 @@ public class VideoDetailServlet extends HttpServlet {
         request.setAttribute("subscriberCount", subscriberCount);
         request.setAttribute("isSubscribed", isSubscribed);
         request.getRequestDispatcher("videodetail.jsp").forward(request, response);
+=======
+        processRequest(request, response);
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     }
 
     /**
@@ -114,6 +124,7 @@ public class VideoDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
 
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(false);
@@ -130,6 +141,9 @@ public class VideoDetailServlet extends HttpServlet {
             new CommentDAO().addComment(videoId, currentUser.getUserId(), content.trim());
         }
         response.sendRedirect("videodetail?id=" + videoId);
+=======
+        processRequest(request, response);
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     }
 
     /**

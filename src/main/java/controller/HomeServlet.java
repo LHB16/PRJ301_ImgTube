@@ -4,7 +4,10 @@
  */
 package controller;
 
+<<<<<<< HEAD
 import dao.VideoDAO;
+=======
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,8 +15,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+<<<<<<< HEAD
 import java.util.List;
 import model.Video;
+=======
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
 
 /**
  *
@@ -60,10 +66,14 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         VideoDAO videoDAO = new VideoDAO();
         List<Video> videos = videoDAO.getAllVideos();
         request.setAttribute("videos", videos);
         request.getRequestDispatcher("home.jsp").forward(request, response);
+=======
+        processRequest(request, response);
+>>>>>>> 985618be4eb3e81521557505b6449ec8d8451a0d
     }
 
     /**
