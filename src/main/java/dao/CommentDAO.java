@@ -68,4 +68,29 @@ public class CommentDAO extends DBContext {
         }
         return false;
     }
+
+    public boolean updateComment(int commentId, String content) {
+        String sql = "UPDATE Comments SET content = ? WHERE commentID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, content);
+            ps.setInt(2, commentId);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteComment(int commentId) {
+        String sql = "DELETE FROM Comments WHERE commentID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, commentId);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

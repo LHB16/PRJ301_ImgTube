@@ -120,9 +120,21 @@ public class VideoDetailServlet extends HttpServlet {
         int videoId = Integer.parseInt(request.getParameter("videoId"));
         String content = request.getParameter("content");
 
-        if (content != null && !content.trim().isEmpty()) {
-            new CommentDAO().addComment(videoId, u.getUserId(), content.trim());
+        String action = request.getParameter("action");
+        if ("editComment".equals(action)) {
+            int commentId = Integer.parseInt(request.getParameter("commentId"));
+            if (content != null && !content.trim().isEmpty()) {
+                new CommentDAO().updateComment(commentId, content.trim());
+            }
+        } else if ("deleteComment".equals(action)) {
+            int commentId = Integer.parseInt(request.getParameter("commentId"));
+            new CommentDAO().deleteComment(commentId);
+        } else {
+            if (content != null && !content.trim().isEmpty()) {
+                new CommentDAO().addComment(videoId, u.getUserId(), content.trim());
+            }
         }
+
         response.sendRedirect("videodetail?id=" + videoId);
     }
 
