@@ -14,7 +14,7 @@
     </head>
     <body>
 
-        <a href="home">← Trang chủ</a>
+        <a href="home">Trang chủ</a>
         <hr>
 
         <img src="${video.urlThumbnail}" width="800">
