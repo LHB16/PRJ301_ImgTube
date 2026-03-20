@@ -60,7 +60,7 @@
             </c:if>
         </c:if>
 
-        <table border="1">
+        <table border="1" class="table table-striped table-hover">
             <tr>
                 <th>ID</th>
                 <th>Thumbnail</th>
@@ -75,7 +75,7 @@
                 <tr>
                     <td>${video.videoId}</td>
                     <td>
-                        <img src="${video.urlThumbnail}" width="150" >
+                        <img src="https://i.ytimg.com/vi/${video.urlVideo}/hqdefault.jpg" width="150" >
                     </td>
                     <td>${video.title}</td>
                     <td>${video.description}</td>

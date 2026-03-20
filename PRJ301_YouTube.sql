@@ -41,7 +41,7 @@ CREATE TABLE Videos (
     videoID INT PRIMARY KEY IDENTITY(1,1),
     title NVARCHAR(200) NOT NULL,
     description NVARCHAR(MAX),
-    urlThumbnail NVARCHAR(MAX),
+    urlVideo NVARCHAR(MAX),
     uploadDate DATETIME DEFAULT GETDATE(),
     status INT DEFAULT 1,
     userID INT FOREIGN KEY REFERENCES Users(userID),
@@ -83,13 +83,13 @@ INSERT INTO Users (username, password, fullName, email, role, status) VALUES
 ('admin', 'e10adc3949ba59abbe56e057f20f883e', N'Admin System', 'admin@admin.prj', 1, 1);
 
 -- Thêm 6 Video (Mỗi video thuộc một Category khác nhau - videoID sẽ tự động tăng dạng int)
-INSERT INTO Videos (title, description, urlThumbnail, userID, categoryID) VALUES 
-(N'LCS Summer 2026 Highlighs', N'Trận đấu đỉnh cao', N'https://i.ytimg.com/vi/_Oh-UBQ1qe0/hqdefault.jpg', 4, 1),
-(N'Chúng ta của tương lai', N'MTP Official MV', N'https://i.ytimg.com/vi/UoXllQoqEBY/hqdefault.jpg', 3, 2),
-(N'Review Phim: Lật Mặt 7', N'Tóm tắt phim hay', N'https://i.ytimg.com/vi/8_VIDJQkxGo/hqdefault.jpg', 6, 3),
-(N'Tin nóng 24h', N'Cập nhật tin tức', N'https://i.ytimg.com/vi/K-Wq0RuO1Tk/hqdefault.jpg', 5, 4),
-(N'Java Servlet căn bản', N'Học PRJ301 cùng FPTU', N'https://i.ytimg.com/vi/X5nt9_11Ozg/hqdefault.jpg', 2, 5),
-(N'Highlight Ngoại Hạng Anh', N'Bóng đá cuối tuần', N'https://i.ytimg.com/vi/flt8mQLBe5c/hqdefault.jpg', 1, 6);
+INSERT INTO Videos (title, description, urlVideo, userID, categoryID) VALUES 
+(N'LCS Summer 2026 Highlighs', N'Trận đấu đỉnh cao', N'_Oh-UBQ1qe0', 4, 1),
+(N'Chúng ta của tương lai', N'MTP Official MV', N'UoXllQoqEBY', 3, 2),
+(N'Review Phim: Lật Mặt 7', N'Tóm tắt phim hay', N'8_VIDJQkxGo', 6, 3),
+(N'Tin nóng 24h', N'Cập nhật tin tức', N'K-Wq0RuO1Tk', 5, 4),
+(N'Java Servlet căn bản', N'Học PRJ301 cùng FPTU', N'X5nt9_11Ozg', 2, 5),
+(N'Highlight Ngoại Hạng Anh', N'Bóng đá cuối tuần', N'flt8mQLBe5c', 1, 6);
 
 -- Thêm 6 Bình luận (videoID tương ứng là 1, 2, 3...)
 INSERT INTO Comments (content, userID, videoID) VALUES 

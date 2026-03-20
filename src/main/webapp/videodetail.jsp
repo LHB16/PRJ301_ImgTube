@@ -79,15 +79,26 @@
         </nav>
         <div class="container mt-4">
 
-            <div class="text-center">
-                <img src="${video.urlThumbnail}" width="50%" alt="Video thumbnail">
+            <!--            <div class="text-center">
+                            <img src="${video.urlVideo}" width="50%" alt="Video thumbnail">
+                        </div>-->
+            
+            <div style="width:70%; margin: 0 auto;">
+                <div style="position:relative; width:100%; padding-top:56.25%;">
+                    <iframe
+                        src="https://www.youtube.com/embed/${video.urlVideo}"
+                        style="position:absolute; top:0; left:0; width:100%; height:100%;"
+                        frameborder="0"
+                        allowfullscreen>
+                    </iframe>
+                </div>
             </div>
-
+            
             <div class="title-section">
                 <h2>${video.title}</h2>
                 <p><i class="bi bi-folder"></i> ${video.category.categoryName} | <i class="bi bi-calendar"></i> <fmt:formatDate value="${video.uploadDate}" pattern="dd/MM/yyyy"/></p>
             </div>
-            
+
             <div>
                 Kênh: <strong>${video.user.fullName}</strong> | ${subscriberCount} người đăng ký
                 &nbsp;
