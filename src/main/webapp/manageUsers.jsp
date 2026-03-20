@@ -66,7 +66,7 @@
             </c:if>
         </c:if>
 
-        <table border="1">
+        <table border="1" class="table table-striped table-hover">
             <tr>
                 <th>ID</th>
                 <th>Username</th>

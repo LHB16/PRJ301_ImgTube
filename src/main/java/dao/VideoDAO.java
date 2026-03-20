@@ -36,7 +36,7 @@ public class VideoDAO extends DBContext {
     public java.util.List<Video> getAllVideos() {
         java.util.List<Video> list = new java.util.ArrayList<>();
 //        String sql = "SELECT * FROM Videos ORDER BY uploadDate DESC";
-        String sql = "SELECT        Categories.categoryID, Categories.categoryName, Users.username, Users.userID, Users.fullName, Videos.videoID, Videos.title, Videos.description, Videos.urlThumbnail, Videos.uploadDate, Videos.status\n"
+        String sql = "SELECT        Categories.categoryID, Categories.categoryName, Users.username, Users.userID, Users.fullName, Videos.videoID, Videos.title, Videos.description, Videos.urlVideo, Videos.uploadDate, Videos.status\n"
                 + "FROM            Categories INNER JOIN\n"
                 + "                         Videos ON Categories.categoryID = Videos.categoryID INNER JOIN\n"
                 + "                         Users ON Videos.userID = Users.userID\n"
@@ -58,7 +58,7 @@ public class VideoDAO extends DBContext {
                 video.setVideoId(rs.getInt("videoID"));
                 video.setTitle(rs.getString("title"));
                 video.setDescription(rs.getString("description"));
-                video.setUrlThumbnail(rs.getString("urlThumbnail"));
+                video.setUrlVideo(rs.getString("urlVideo"));
                 video.setUploadDate(rs.getDate("uploadDate"));
                 video.setStatus(rs.getInt("status"));
                 video.setUser(user);
@@ -73,7 +73,7 @@ public class VideoDAO extends DBContext {
     }
 
     public Video getVideoById(int videoId) {
-        String sql = "SELECT Videos.videoID, Videos.title, Videos.description, Videos.urlThumbnail, "
+        String sql = "SELECT Videos.videoID, Videos.title, Videos.description, Videos.urlVideo, "
                 + "Videos.uploadDate, Videos.status, "
                 + "Users.userID, Users.username, Users.fullName, "
                 + "Categories.categoryID, Categories.categoryName "
@@ -99,7 +99,7 @@ public class VideoDAO extends DBContext {
                 video.setVideoId(rs.getInt("videoID"));
                 video.setTitle(rs.getString("title"));
                 video.setDescription(rs.getString("description"));
-                video.setUrlThumbnail(rs.getString("urlThumbnail"));
+                video.setUrlVideo(rs.getString("urlVideo"));
                 video.setUploadDate(rs.getDate("uploadDate"));
                 video.setStatus(rs.getInt("status"));
                 video.setUser(user);
