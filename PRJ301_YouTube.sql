@@ -79,17 +79,17 @@ INSERT INTO Users (username, password, fullName, email, role, status) VALUES
 ('son_tung', '202cb962ac59075b964b07152d234b70', N'MTP Official', 'mtp@gmail.com', 0, 1),
 ('do_mixi', '202cb962ac59075b964b07152d234b70', N'Tộc Trưởng', 'mixi@gmail.com', 0, 1),
 ('vtv_news', '202cb962ac59075b964b07152d234b70', N'VTV Digital', 'vtv@vtv.vn', 0, 1),
-('fap_tv', '202cb962ac59075b964b07152d234b70', N'FAP TV', 'faptv@gmail.com', 0, 1),
+('hay_review', '202cb962ac59075b964b07152d234b70', N'Hay Review', 'hayreview@gmail.com', 0, 1),
 ('admin', 'e10adc3949ba59abbe56e057f20f883e', N'Admin System', 'admin@admin.prj', 1, 1);
 
 -- Thêm 6 Video (Mỗi video thuộc một Category khác nhau - videoID sẽ tự động tăng dạng int)
 INSERT INTO Videos (title, description, urlThumbnail, userID, categoryID) VALUES 
-(N'LCS Summer 2026 Highlighs', N'Trận đấu đỉnh cao', N'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg', 4, 1),
-(N'Chúng ta của tương lai', N'MTP Official MV', N'https://i.ytimg.com/vi/PtBSHn_Ru2w/hqdefault.jpg', 3, 2),
-(N'Review Phim: Lật Mặt 7', N'Tóm tắt phim hay', N'https://i.ytimg.com/vi/5ZVgBf3TwIk/hqdefault.jpg', 6, 3),
-(N'Tin nóng 24h', N'Cập nhật tin tức', N'https://i.ytimg.com/vi/9bZkp7q19f0/hqdefault.jpg', 5, 4),
-(N'Java Servlet căn bản', N'Học PRJ301 cùng FPTU', N'https://i.ytimg.com/vi/7BGDiCmSIJA/hqdefault.jpg', 2, 5),
-(N'Highlight Ngoại Hạng Anh', N'Bóng đá cuối tuần', N'https://i.ytimg.com/vi/eExly_lFuFo/hqdefault.jpg', 1, 6);
+(N'LCS Summer 2026 Highlighs', N'Trận đấu đỉnh cao', N'https://i.ytimg.com/vi/_Oh-UBQ1qe0/hqdefault.jpg', 4, 1),
+(N'Chúng ta của tương lai', N'MTP Official MV', N'https://i.ytimg.com/vi/UoXllQoqEBY/hqdefault.jpg', 3, 2),
+(N'Review Phim: Lật Mặt 7', N'Tóm tắt phim hay', N'https://i.ytimg.com/vi/8_VIDJQkxGo/hqdefault.jpg', 6, 3),
+(N'Tin nóng 24h', N'Cập nhật tin tức', N'https://i.ytimg.com/vi/K-Wq0RuO1Tk/hqdefault.jpg', 5, 4),
+(N'Java Servlet căn bản', N'Học PRJ301 cùng FPTU', N'https://i.ytimg.com/vi/X5nt9_11Ozg/hqdefault.jpg', 2, 5),
+(N'Highlight Ngoại Hạng Anh', N'Bóng đá cuối tuần', N'https://i.ytimg.com/vi/flt8mQLBe5c/hqdefault.jpg', 1, 6);
 
 -- Thêm 6 Bình luận (videoID tương ứng là 1, 2, 3...)
 INSERT INTO Comments (content, userID, videoID) VALUES 

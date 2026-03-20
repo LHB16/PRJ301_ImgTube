@@ -60,6 +60,7 @@
                 <th>Thumbnail</th>
                 <th>Tiêu đề</th>
                 <th>Mô tả</th>
+                <th>Chủ video</th> 
                 <th>Ngày đăng</th>
                 <th>Trạng thái</th>
                 <th>Thao tác</th>
@@ -68,10 +69,11 @@
                 <tr>
                     <td>${video.videoId}</td>
                     <td>
-                        <img iframe src="${video.urlThumbnail}" width="150" ></iframe>
+                        <img src="${video.urlThumbnail}" width="150" >
                     </td>
                     <td>${video.title}</td>
                     <td>${video.description}</td>
+                    <td>${video.user.fullName}</td>
                     <td>${video.uploadDate}</td>
                     <td>
                         <c:if test="${video.status == 1}">
