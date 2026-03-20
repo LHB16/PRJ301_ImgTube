@@ -1,18 +1,22 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ImgTube - Xem video trực tuyến</title>
         <!-- Bootstrap 5 CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+              rel="stylesheet">
         <!-- Bootstrap Icons -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     </head>
+
     <body>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-white border-bottom py-0 sticky-top">
@@ -41,7 +45,7 @@
                     <ul class="nav flex-column">
                         <li class="nav-item mt-2">
                             <span class="nav-link text-uppercase small fw-bold text-secondary">Danh mục</span>
-                        </li> 
+                        </li>
                         <c:forEach items="${categories}" var="cat">
                             <li class="nav-item">
                                 <a class="nav-link" href="category?id=${cat.categoryId}">
@@ -55,19 +59,21 @@
                 <!-- Video display -->
                 <div class="col-md-10 col-lg-10">
                     <h2>
-                    Video nổi bật | <a href="video?action=add" class="btn btn-secondary">Thêm video</a>
-                    <hr class="border-dark border-3 opacity-100">
+                        Video nổi bật | <a href="video?action=add" class="btn btn-secondary">Thêm video</a>
+                        <hr class="border-dark border-3 opacity-100">
                     </h2>
                     <div class="row g-3">
                         <c:choose>
                             <c:when test="${not empty videos}">
                                 <c:forEach items="${videos}" var="video">
                                     <div class="col-sm-6 col-md-4 col-lg-3">
-                                        <div class="video-card" onclick="location.href = 'videodetail?id=${video.videoId}';">
+                                        <div class="video-card"
+                                             onclick="location.href = 'videodetail?id=${video.videoId}';">
                                             <div class="p-2">
                                                 <img src="${video.urlThumbnail}" width="100%">
                                                 <h3 class="video-title">
-                                                    <a href="videodetail?id=${video.videoId}" class="text-decoration-none text-dark">
+                                                    <a href="videodetail?id=${video.videoId}"
+                                                       class="text-decoration-none text-dark">
                                                         ${video.title}
                                                     </a>
                                                 </h3>
@@ -76,6 +82,10 @@
                                                 </div>
                                                 <div class="video-meta">
                                                     <i class="bi bi-calendar3"></i> ${video.uploadDate}
+                                                    <br>
+                                                    <a href="video?action=update&id=${video.videoId}" class="btn btn-warning btn-sm">
+                                                        <i class="bi bi-brush me-1"></i> Chỉnh sửa
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -94,7 +104,12 @@
             </div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+                integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
     </body>
+
 </html>

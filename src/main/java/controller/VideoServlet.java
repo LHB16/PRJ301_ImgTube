@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Category;
 import model.User;
+import model.Video;
 
 /**
  *
@@ -64,6 +65,7 @@ public class VideoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CategoryDAO daoCate = new CategoryDAO();
+        VideoDAO daoVideo = new VideoDAO();
         String action = request.getParameter("action");
         if (action == null) {
             action = "all";
@@ -73,6 +75,16 @@ public class VideoServlet extends HttpServlet {
             List<Category> listCate = daoCate.getAllCategories();
             request.setAttribute("listCate", listCate);
             request.getRequestDispatcher("addvideo.jsp").forward(request, response);
+            return;
+        }
+        
+        if(action.equalsIgnoreCase("update")){
+            int id = Integer.parseInt(request.getParameter("id"));
+            Video video = daoVideo.getVideoById(id);
+            List<Category> listCate = daoCate.getAllCategories();
+            request.setAttribute("listCate", listCate);
+            request.setAttribute("video", video);
+            request.getRequestDispatcher("updatevideo.jsp").forward(request, response);
             return;
         }
     }
@@ -90,7 +102,7 @@ public class VideoServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         VideoDAO dao = new VideoDAO();
-       
+
         User u = (User) session.getAttribute("user");
 
         String action = request.getParameter("action");
@@ -99,7 +111,7 @@ public class VideoServlet extends HttpServlet {
             String title = request.getParameter("title");
             String des = request.getParameter("description");
             String url = request.getParameter("urlThumbnail");
-            int cateID = Integer.parseInt(request.getParameter("categoryId")) ;
+            int cateID = Integer.parseInt(request.getParameter("categoryId"));
             Boolean res = dao.insert(title, des, url, u.getUserId(), cateID);
 //            PrintWriter out = response.getWriter();
 //            out.println(name);
@@ -108,6 +120,18 @@ public class VideoServlet extends HttpServlet {
 //            Boolean rs = dao.insert(name, des);
             //request.getRequestDispatcher("category").forward(request, response);
             response.sendRedirect("home");
+            return;
+        }
+
+        if (action.equalsIgnoreCase("update")) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String title = request.getParameter("title");
+            String des = request.getParameter("description");
+            String url = request.getParameter("urlThumbnail");
+            int cateID = Integer.parseInt(request.getParameter("categoryId"));
+            Boolean res = dao.update(id, title, des, url, cateID);
+            response.sendRedirect("home");
+            return;
         }
     }
 

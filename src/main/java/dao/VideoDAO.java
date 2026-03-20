@@ -160,7 +160,7 @@ public class VideoDAO extends DBContext {
     }
 
     public Boolean insert(String title, String description, String urlThumbnail, int userID, int categoryID) {
-       
+
         String sql = "insert into Videos (title, description, urlThumbnail, userID, categoryID)"
                 + "VALUES (?, ?, ?, ?, ?)";
         try {
@@ -180,4 +180,26 @@ public class VideoDAO extends DBContext {
         }
         return false;
     }
+
+    public Boolean update(int videoID, String title, String description, String urlThumbnail, int categoryID) {
+        String sql = "update Videos set title=?, description=?, urlThumbnail=?, categoryID=? where videoID=?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setString(3, urlThumbnail);
+            ps.setInt(4, categoryID);
+            ps.setInt(5, videoID);
+            int row = ps.executeUpdate();
+
+            if (row > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
 }
