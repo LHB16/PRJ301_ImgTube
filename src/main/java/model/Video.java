@@ -6,7 +6,7 @@ public class Video {
     private int videoId;
     private String title;
     private String description;
-    private String urlThumbnail;
+    private String urlVideo;
     private Date uploadDate;
     private User user;
     private Category category;
@@ -15,11 +15,11 @@ public class Video {
     public Video() {
     }
 
-    public Video(int videoId, String title, String description, String urlThumbnail, Date uploadDate, User user, Category category, int status) {
+    public Video(int videoId, String title, String description, String urlVideo, Date uploadDate, User user, Category category, int status) {
         this.videoId = videoId;
         this.title = title;
         this.description = description;
-        this.urlThumbnail = urlThumbnail;
+        this.urlVideo = urlVideo;
         this.uploadDate = uploadDate;
         this.user = user;
         this.category = category;
@@ -50,12 +50,12 @@ public class Video {
         this.description = description;
     }
 
-    public String getUrlThumbnail() {
-        return urlThumbnail;
+    public String getUrlVideo() {
+        return urlVideo;
     }
 
-    public void setUrlThumbnail(String urlThumbnail) {
-        this.urlThumbnail = urlThumbnail;
+    public void setUrlVideo(String urlVideo) {
+        this.urlVideo = urlVideo;
     }
 
     public Date getUploadDate() {
@@ -92,7 +92,7 @@ public class Video {
 
     @Override
     public String toString() {
-        return "Video{" + "videoId=" + videoId + ", title=" + title + ", description=" + description + ", urlThumbnail=" + urlThumbnail + ", uploadDate=" + uploadDate + ", user=" + user + ", category=" + category + ", status=" + status + '}';
+        return "Video{" + "videoId=" + videoId + ", title=" + title + ", description=" + description + ", urlVideo=" + urlVideo + ", uploadDate=" + uploadDate + ", user=" + user + ", category=" + category + ", status=" + status + '}';
     }
 
   }
