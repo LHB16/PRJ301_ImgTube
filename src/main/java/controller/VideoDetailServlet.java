@@ -88,8 +88,8 @@ public class VideoDetailServlet extends HttpServlet {
 
         boolean isSubscribed = false;
         HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("account") != null) {
-            User u = (User) session.getAttribute("account");
+        if (session != null && session.getAttribute("user") != null) {
+            User u = (User) session.getAttribute("user");
             isSubscribed = subDAO.isSubscribed(u.getUserId(), video.getUser().getUserId());
         }
         request.setAttribute("isSubscribed", isSubscribed);
@@ -111,12 +111,12 @@ public class VideoDetailServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("account") == null) {
+        if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect("login.jsp");
             return;
         }
 
-        User u = (User) session.getAttribute("account");
+        User u = (User) session.getAttribute("user");
         int videoId = Integer.parseInt(request.getParameter("videoId"));
         String content = request.getParameter("content");
 

@@ -5,7 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
     <head>
@@ -17,7 +18,7 @@
         <a href="home">← Trang chủ</a>
         <hr>
 
-        <iframe src="${video.urlThumbnail}" width="800" height="450" allowfullscreen></iframe>
+        <img src="${video.urlThumbnail}" width="800">
 
         <h2>${video.title}</h2>
         <p>${video.category.categoryName} | <fmt:formatDate value="${video.uploadDate}" pattern="dd/MM/yyyy"/></p>
@@ -29,10 +30,10 @@
     Kênh: <strong>${video.user.fullName}</strong> | ${subscriberCount} người đăng ký
     &nbsp;
     <c:choose>
-        <c:when test="${sessionScope.account == null}">
+        <c:when test="${sessionScope.user == null}">
             <a href="login">[Đăng ký]</a>
         </c:when>
-        <c:when test="${sessionScope.account.userId == video.user.userId}">
+        <c:when test="${sessionScope.user.userId == video.user.userId}">
             [Kênh của bạn]
         </c:when>
         <c:otherwise>
@@ -50,7 +51,7 @@
 <h3>Bình luận (${comments.size()})</h3>
 
 <c:choose>
-    <c:when test="${sessionScope.account != null}">
+    <c:when test="${sessionScope.user != null}">
         <form action="videodetail" method="post">
             <input type="hidden" name="videoId" value="${video.videoId}"/>
             <textarea name="content" rows="3" cols="60" placeholder="Viết bình luận..."></textarea>
