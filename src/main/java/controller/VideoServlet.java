@@ -100,7 +100,7 @@ public class VideoServlet extends HttpServlet {
             String des = request.getParameter("description");
             String url = request.getParameter("urlThumbnail");
             int cateID = Integer.parseInt(request.getParameter("categoryId")) ;
-            Boolean res = dao.insert(title, action, url, cateID, cateID);
+            Boolean res = dao.insert(title, des, url, u.getUserId(), cateID);
 //            PrintWriter out = response.getWriter();
 //            out.println(name);
 //            out.println(des);
