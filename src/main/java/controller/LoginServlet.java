@@ -91,7 +91,14 @@ public class LoginServlet extends HttpServlet {
         User u = dao.loginByEmail(email, password);
 
         if (u.getUserId() == -1) {
-            response.sendRedirect("login");
+            // kiểm tra có bị ban hay không
+            User bannedUser = dao.getUserByEmailOnly(email);
+            if (bannedUser.getUserId() != -1 && bannedUser.getStatus() == 0) {
+                request.setAttribute("errorMsg", "Không thể đăng nhập, bạn đã bị ban há há vừa lắm");
+            } else {
+                request.setAttribute("errorMsg", "Email hoặc mật khẩu không đúng");
+            }
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("user", u);

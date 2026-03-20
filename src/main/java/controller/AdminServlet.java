@@ -71,33 +71,10 @@ public class AdminServlet extends HttpServlet {
             java.util.List<model.User> users = userDAO.getAllUsers();
             request.setAttribute("users", users);
             request.getRequestDispatcher("manageUsers.jsp").forward(request, response);
-        }
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        HttpSession session = request.getSession();
-        model.User user = (model.User) session.getAttribute("user");
-
-        if (user == null || user.getRole() != 1) {
+        } else if ("logout".equals(action)) {
+            session.invalidate();
             response.sendRedirect("login");
-            return;
-        }
-
-        String action = request.getParameter("action");
-
-        if ("toggleVideoStatus".equals(action)) {
+        } else if ("toggleVideoStatus".equals(action)) {
             int videoId = Integer.parseInt(request.getParameter("videoId"));
             int currentStatus = Integer.parseInt(request.getParameter("currentStatus"));
             int newStatus = (currentStatus == 1) ? 0 : 1;
@@ -136,6 +113,32 @@ public class AdminServlet extends HttpServlet {
                 response.sendRedirect("admin?action=manageUsers&msg=error");
             }
         }
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+        HttpSession session = request.getSession();
+        model.User user = (model.User) session.getAttribute("user");
+
+        if (user == null || user.getRole() != 1) {
+            response.sendRedirect("login");
+            return;
+        }
+
+        String action = request.getParameter("action");
+
+        // No POST actions needed for now - all admin actions are handled via GET
     }
 
     /**
