@@ -61,7 +61,6 @@
                                 <c:forEach items="${videos}" var="video">
                                     <div class="col-sm-6 col-md-4 col-lg-3">
                                         <div class="video-card" onclick="location.href = 'videodetail?id=${video.videoId}';">
-                                            <div class="video-thumbnail" style="background-image: url('${video.urlThumbnail}');"></div>
                                             <div class="p-2">
                                                 <img src="${video.urlThumbnail}" width="100%">
                                                 <h3 class="video-title">
