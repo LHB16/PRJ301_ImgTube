@@ -43,7 +43,7 @@ public class CommentDAO extends DBContext {
                 Comment comment = new Comment();
                 comment.setCommentId(rs.getInt("commentID"));
                 comment.setContent(rs.getString("content"));
-                comment.setCommentDate(rs.getDate("commentDate"));
+                comment.setCommentDate(rs.getTimestamp("commentDate"));
                 comment.setStatus(rs.getInt("status"));
                 comment.setUser(user);
                 comment.setVideo(video);
