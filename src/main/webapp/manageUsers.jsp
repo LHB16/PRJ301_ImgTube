@@ -13,6 +13,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
         <title>Quản lý Người Dùng</title>
+        <!-- Bootstrap 5 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
         <style>
             .header {
                 display: flex;
@@ -45,7 +50,7 @@
                 <a href="admin?action=logout" class="logout-btn">Logout</a>
             </div>
         </div>
-        
+
         <c:if test="${not empty param.msg}">
             <c:if test="${param.msg == 'success'}">
                 <p style="color: green;">Thao tác thành công!</p>
@@ -60,7 +65,7 @@
                 <p style="color: orange;">Không thể ban chính mình!</p>
             </c:if>
         </c:if>
-        
+
         <table border="1">
             <tr>
                 <th>ID</th>
@@ -80,8 +85,8 @@
                     <td>
                         <c:if test="${user.role == 1}">Admin</c:if>
                         <c:if test="${user.role == 0}">User</c:if>
-                    </td>
-                    <td>
+                        </td>
+                        <td>
                         <c:if test="${user.status == 1}">
                             <span style="color: green;">Hoạt động</span>
                         </c:if>
@@ -97,11 +102,14 @@
                             <a href="admin?action=toggleUserStatus&userId=${user.userId}&currentStatus=${user.status}">
                                 <c:if test="${user.status == 1}">Ban</c:if>
                                 <c:if test="${user.status == 0}">Unban</c:if>
-                            </a>
+                                </a>
                         </c:if>
                     </td>
                 </tr>
             </c:forEach>
         </table>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
     </body>
 </html>

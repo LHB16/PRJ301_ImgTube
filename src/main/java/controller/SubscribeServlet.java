@@ -76,12 +76,12 @@ public class SubscribeServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("account") == null) {
+        if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect("login.jsp");
             return;
         }
 
-        User u = (User) session.getAttribute("account");
+        User u = (User) session.getAttribute("user");
         int channelOwnerId = Integer.parseInt(request.getParameter("channelOwnerId"));
         int videoId = Integer.parseInt(request.getParameter("videoId"));
 
