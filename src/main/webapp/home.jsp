@@ -65,7 +65,7 @@
                                     <div class="col-sm-6 col-md-4 col-lg-3">
                                         <div class="video-card" onclick="location.href = 'videodetail?id=${video.videoId}';">
                                             <div class="p-2">
-                                                <img src="${video.urlThumbnail}" width="100%">
+                                                <img src="https://i.ytimg.com/vi/${video.urlVideo}/hqdefault.jpg" width="100%">
                                                 <h3 class="video-title">
                                                     <a href="videodetail?id=${video.videoId}" class="text-decoration-none text-dark">
                                                         ${video.title}
