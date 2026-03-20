@@ -4,6 +4,8 @@
  */
 package dao;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import model.User;
@@ -117,43 +119,65 @@ public class VideoDAO extends DBContext {
         }
 
     }
+
     public java.util.List<Video> getActiveVideos() {
-    java.util.List<Video> list = new java.util.ArrayList<>();
-    String sql = "SELECT Categories.categoryID, Categories.categoryName, Users.username, Users.userID, Users.fullName, "
-               + "Videos.videoID, Videos.title, Videos.description, Videos.urlThumbnail, Videos.uploadDate, Videos.status "
-               + "FROM Categories "
-               + "INNER JOIN Videos ON Categories.categoryID = Videos.categoryID "
-               + "INNER JOIN Users ON Videos.userID = Users.userID "
-               + "WHERE Videos.status = 1 "
-               + "ORDER BY Videos.uploadDate DESC";
-    try {
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            User user = new User();
-            user.setUserId(rs.getInt("userID"));
-            user.setUsername(rs.getString("username"));
-            user.setFullName(rs.getString("fullName"));
+        java.util.List<Video> list = new java.util.ArrayList<>();
+        String sql = "SELECT Categories.categoryID, Categories.categoryName, Users.username, Users.userID, Users.fullName, "
+                + "Videos.videoID, Videos.title, Videos.description, Videos.urlThumbnail, Videos.uploadDate, Videos.status "
+                + "FROM Categories "
+                + "INNER JOIN Videos ON Categories.categoryID = Videos.categoryID "
+                + "INNER JOIN Users ON Videos.userID = Users.userID "
+                + "WHERE Videos.status = 1 "
+                + "ORDER BY Videos.uploadDate DESC";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("userID"));
+                user.setUsername(rs.getString("username"));
+                user.setFullName(rs.getString("fullName"));
 
-            Category cat = new Category();
-            cat.setCategoryId(rs.getInt("categoryID"));
-            cat.setCategoryName(rs.getString("categoryName"));
+                Category cat = new Category();
+                cat.setCategoryId(rs.getInt("categoryID"));
+                cat.setCategoryName(rs.getString("categoryName"));
 
-            Video video = new Video();
-            video.setVideoId(rs.getInt("videoID"));
-            video.setTitle(rs.getString("title"));
-            video.setDescription(rs.getString("description"));
-            video.setUrlThumbnail(rs.getString("urlThumbnail"));
-            video.setUploadDate(rs.getDate("uploadDate"));
-            video.setStatus(rs.getInt("status"));
-            video.setUser(user);
-            video.setCategory(cat);
-            list.add(video);
+                Video video = new Video();
+                video.setVideoId(rs.getInt("videoID"));
+                video.setTitle(rs.getString("title"));
+                video.setDescription(rs.getString("description"));
+                video.setUrlThumbnail(rs.getString("urlThumbnail"));
+                video.setUploadDate(rs.getDate("uploadDate"));
+                video.setStatus(rs.getInt("status"));
+                video.setUser(user);
+                video.setCategory(cat);
+                list.add(video);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+        return list;
     }
-    return list;
-}
-}
 
+    public Boolean insert(String title, String description, String urlThumbnail, int userID, int categoryID) {
+       
+        String sql = "insert into Videos (title, description, urlThumbnail, userID, categoryID)"
+                + "VALUES (?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = conn.prepareCall(sql);
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setString(3, urlThumbnail);
+            ps.setInt(4, userID);
+            ps.setInt(5, categoryID);
+            int row = ps.executeUpdate();
+            if (row > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+}

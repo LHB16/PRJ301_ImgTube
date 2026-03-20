@@ -54,7 +54,10 @@
 
                 <!-- Video display -->
                 <div class="col-md-10 col-lg-10">
-                    <h2 class="featured-heading">Video nổi bật</h2>
+                    <h2>
+                    Video nổi bật | <a href="video?action=add" class="btn btn-secondary">Thêm video</a>
+                    <hr class="border-dark border-3 opacity-100">
+                    </h2>
                     <div class="row g-3">
                         <c:choose>
                             <c:when test="${not empty videos}">

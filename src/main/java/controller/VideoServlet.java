@@ -4,6 +4,8 @@
  */
 package controller;
 
+import dao.CategoryDAO;
+import dao.VideoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,13 +13,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Category;
+import model.User;
 
 /**
  *
- * @author luuhu
+ * @author GIGABYTE
  */
-@WebServlet(name = "MyVideoServlet", urlPatterns = {"/myvideo"})
-public class MyVideoServlet extends HttpServlet {
+@WebServlet(name = "AddVideo", urlPatterns = {"/video"})
+public class VideoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +42,10 @@ public class MyVideoServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MyVideoServlet</title>");
+            out.println("<title>Servlet AddVideo</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MyVideoServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddVideo at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,7 +63,18 @@ public class MyVideoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        CategoryDAO daoCate = new CategoryDAO();
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "all";
+        }
+
+        if (action.equalsIgnoreCase("add")) {
+            List<Category> listCate = daoCate.getAllCategories();
+            request.setAttribute("listCate", listCate);
+            request.getRequestDispatcher("addvideo.jsp").forward(request, response);
+            return;
+        }
     }
 
     /**
@@ -71,7 +88,27 @@ public class MyVideoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        VideoDAO dao = new VideoDAO();
+       
+        User u = (User) session.getAttribute("user");
+
+        String action = request.getParameter("action");
+
+        if (action.equalsIgnoreCase("add")) {
+            String title = request.getParameter("title");
+            String des = request.getParameter("description");
+            String url = request.getParameter("urlThumbnail");
+            int cateID = Integer.parseInt(request.getParameter("categoryId")) ;
+            Boolean res = dao.insert(title, action, url, cateID, cateID);
+//            PrintWriter out = response.getWriter();
+//            out.println(name);
+//            out.println(des);
+
+//            Boolean rs = dao.insert(name, des);
+            //request.getRequestDispatcher("category").forward(request, response);
+            response.sendRedirect("home");
+        }
     }
 
     /**
