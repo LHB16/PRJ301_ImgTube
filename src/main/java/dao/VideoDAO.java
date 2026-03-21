@@ -129,11 +129,51 @@ public class VideoDAO extends DBContext {
         return null;
     }
 
+    public java.util.List<Video> getActiveVideosByID(int userID) {
+        java.util.List<Video> list = new java.util.ArrayList<>();
+        String sql = "SELECT Categories.categoryID, Categories.categoryName, Users.username, Users.userID, Users.fullName, "
+                + "Videos.videoID, Videos.title, Videos.description, Videos.urlVideo, Videos.uploadDate, Videos.status "
+                + "FROM Categories "
+                + "INNER JOIN Videos ON Categories.categoryID = Videos.categoryID "
+                + "INNER JOIN Users ON Videos.userID = Users.userID "
+                + "WHERE Videos.userID = ? "
+                + "ORDER BY Videos.uploadDate DESC";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("userID"));
+                user.setUsername(rs.getString("username"));
+                user.setFullName(rs.getString("fullName"));
+
+                Category cat = new Category();
+                cat.setCategoryId(rs.getInt("categoryID"));
+                cat.setCategoryName(rs.getString("categoryName"));
+
+                Video video = new Video();
+                video.setVideoId(rs.getInt("videoID"));
+                video.setTitle(rs.getString("title"));
+                video.setDescription(rs.getString("description"));
+                video.setUrlVideo(rs.getString("urlVideo"));
+                video.setUploadDate(rs.getDate("uploadDate"));
+                video.setStatus(rs.getInt("status"));
+                video.setUser(user);
+                video.setCategory(cat);
+                list.add(video);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         VideoDAO dao = new VideoDAO();
-        for (Video v : dao.getAllVideos()) {
-            System.out.println(v);
-        }
+        //System.out.println(dao.getVideoByUserId(2));
+        System.out.println("--------");
+        System.out.println(dao.getActiveVideos());
 
     }
 
@@ -215,5 +255,49 @@ public class VideoDAO extends DBContext {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public Boolean insert(String title, String description, String urlVideo, int userID, int categoryID) {
+
+        String sql = "insert into Videos (title, description, urlVideo , userID, categoryID) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setString(3, urlVideo);
+            ps.setInt(4, userID);
+            ps.setInt(5, categoryID);
+            int row = ps.executeUpdate();
+            if (row > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Boolean update(int videoID, String title, String description, String urlVideo, int categoryID) {
+        String sql = "update Videos set title=?, description=?, urlVideo=?, categoryID=? where videoID=?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setString(3, urlVideo);
+            ps.setInt(4, categoryID);
+            ps.setInt(5, videoID);
+            int row = ps.executeUpdate();
+
+            if (row > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+        }
+        return false;
     }
 }
