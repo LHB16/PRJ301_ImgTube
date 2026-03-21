@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.User;
 
-@WebFilter(filterName = "AdminFilter", urlPatterns = {"/admin/*"})
+@WebFilter(filterName = "AdminFilter", urlPatterns = {"/admin", "/manageUsers.jsp", "/manageVideos.jsp"})
 public class AdminFilter implements Filter {
 
     public AdminFilter() {

@@ -19,13 +19,16 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg bg-white border-bottom py-0 sticky-top">
+        <nav class="navbar navbar-expand-lg bg-white border-bottom py-3 sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home"><i class="bi bi-camera-reels"></i> ImgTube</a>
+                <a class="navbar-brand fw-bold fs-4" href="home"><i class="bi bi-camera-reels"></i> ImgTube</a>
                 <div class="d-flex align-items-center">
                     <c:choose>
                         <c:when test="${not empty sessionScope.user}">
-                            <span class="me-3 text-dark fw-bold">${sessionScope.user.username}</span>
+
+                            <a href="video?id=${sessionScope.user.userId}" class="text-decoration-none">
+                                <span class="me-3 text-dark fw-bold">${sessionScope.user.username}</span>
+                            </a>
                             <a href="logout" class="btn btn-outline-danger btn-sm">Đăng xuất</a>
                         </c:when>
                         <c:otherwise>
