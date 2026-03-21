@@ -4,6 +4,8 @@
  */
 package controller;
 
+import dao.CategoryDAO;
+import dao.VideoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Category;
 
 /**
  *
@@ -57,7 +61,17 @@ public class CategoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        VideoDAO videoDAO = new VideoDAO();
+        CategoryDAO categoryDAO = new CategoryDAO();     
+        
+        String idRaw = request.getParameter("id");
+        int id = Integer.parseInt(idRaw);
+        
+       
+        request.setAttribute("videos", videoDAO.getAllVideosOfCategoriesById(id));
+
+        request.getRequestDispatcher("homecategory.jsp").forward(request, response);
     }
 
     /**
@@ -71,7 +85,7 @@ public class CategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**
