@@ -64,6 +64,10 @@ public class AdminServlet extends HttpServlet {
         if ("manageVideos".equals(action)) {
             dao.VideoDAO videoDAO = new dao.VideoDAO();
             java.util.List<model.Video> videos = videoDAO.getAllVideos();
+            
+            // Debug: Print data size
+            System.out.println("DEBUG: Videos size for manageVideos: " + videos.size());
+            
             request.setAttribute("videos", videos);
             request.getRequestDispatcher("manageVideos.jsp").forward(request, response);
         } else if ("manageUsers".equals(action)) {
