@@ -300,4 +300,42 @@ public class VideoDAO extends DBContext {
         }
         return false;
     }
+
+    public Boolean delete(int id) {
+        String sqlDeleteComments = "DELETE FROM Comments WHERE videoID = ?";
+        String sqlDeleteVideo = "DELETE FROM Videos WHERE videoID = ?";
+
+        try {
+            // Bắt đầu transaction
+            conn.setAutoCommit(false);
+
+            // Xóa comment trước
+            PreparedStatement psComments = conn.prepareStatement(sqlDeleteComments);
+            psComments.setInt(1, id);
+            psComments.executeUpdate();
+
+            // Xóa video sau
+            PreparedStatement psVideo = conn.prepareStatement(sqlDeleteVideo);
+            psVideo.setInt(1, id);
+            int row = psVideo.executeUpdate();
+
+            conn.commit();
+            return row > 0;
+
+        } catch (Exception e) {
+            try {
+                conn.rollback();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
 }

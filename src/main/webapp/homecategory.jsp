@@ -21,7 +21,9 @@
                 <div class="d-flex align-items-center">
                     <c:choose>
                         <c:when test="${not empty sessionScope.user}">
-                            <span class="me-3 text-dark fw-bold">${sessionScope.user.username}</span>
+                            <a href="video?id=${sessionScope.user.userId}" class="text-decoration-none">
+                                <span class="me-3 text-dark fw-bold">${sessionScope.user.username}</span>
+                            </a>
                             <a href="logout" class="btn btn-outline-danger btn-sm">Đăng xuất</a>
                         </c:when>
                         <c:otherwise>
@@ -40,13 +42,13 @@
                 <!-- Video display -->
                 <div class="col-md-10 col-lg-10">
                     <h2 class="featured-heading">
-                        <c:forEach items="${videos}" var="video">
+                        <c:if test="${not empty videos}">
                             <li class="nav-item">
                                 <a class="nav-link">
-                                    Video ${video.category.categoryName}
+                                    Video ${videos[0].category.categoryName}
                                 </a>
                             </li>
-                        </c:forEach>
+                        </c:if>
                     </h2>
                     <div class="row g-3">
                         <c:choose>
