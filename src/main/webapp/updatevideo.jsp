@@ -41,7 +41,7 @@
                         <h2>Thêm Video Mới</h2>
                         <hr>
 
-                        <form action="video?action=update&id=${video.videoId}" method="POST">
+                        <form action="video?action=update&videoid=${video.videoId}" method="POST">
 
                             <div class="mb-3">
                                 <label class="form-label">Tiêu đề video:</label>
@@ -56,8 +56,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label">URL(Internet link):</label>
-                                <input type="text" class="form-control" name="urlThumbnail"
-                                    value="${video.urlThumbnail}">
+                                <input type="text" class="form-control" name="urlVideo" value="${video.urlVideo}">
                             </div>
 
                             <div class="mb-3">

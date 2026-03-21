@@ -79,6 +79,10 @@
                                                 </div>
                                                 <div class="video-meta">
                                                     <i class="bi bi-calendar3"></i> ${video.uploadDate}
+                                                    <br>
+                                                    <a href="video?action=update&videoid=${video.videoId}" class="btn btn-warning btn-sm">
+                                                        <i class="bi bi-brush me-1"></i> Chỉnh sửa
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

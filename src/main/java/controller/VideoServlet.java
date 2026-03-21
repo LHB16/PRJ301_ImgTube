@@ -86,16 +86,16 @@ public class VideoServlet extends HttpServlet {
             request.getRequestDispatcher("addvideo.jsp").forward(request, response);
             return;
         }
-
-//        if(action.equalsIgnoreCase("update")){
-//            int id = Integer.parseInt(request.getParameter("id"));
-//            Video video = daoVideo.getVideoById(id);
-//            List<Category> listCate = daoCate.getAllCategories();
-//            request.setAttribute("listCate", listCate);
-//            request.setAttribute("video", video);
-//            request.getRequestDispatcher("updatevideo.jsp").forward(request, response);
-//            return;
-//        }
+        
+        if(action.equalsIgnoreCase("update")){
+            int videoid = Integer.parseInt(request.getParameter("videoid"));
+            Video video = daoVideo.getVideoById(videoid);
+            List<Category> listCate = daoCate.getAllCategories();
+            request.setAttribute("listCate", listCate);
+            request.setAttribute("video", video);
+            request.getRequestDispatcher("updatevideo.jsp").forward(request, response);
+            return;
+        }
     }
 
     /**
@@ -126,16 +126,16 @@ public class VideoServlet extends HttpServlet {
             return;
         }
 
-//        if (action.equalsIgnoreCase("update")) {
-//            int id = Integer.parseInt(request.getParameter("id"));
-//            String title = request.getParameter("title");
-//            String des = request.getParameter("description");
-//            String url = request.getParameter("urlThumbnail");
-//            int cateID = Integer.parseInt(request.getParameter("categoryId"));
-//            Boolean res = dao.update(id, title, des, url, cateID);
-//            response.sendRedirect("home");
-//            return;
-//        }
+        if (action.equalsIgnoreCase("update")) {
+            int videoid = Integer.parseInt(request.getParameter("videoid"));
+            String title = request.getParameter("title");
+            String des = request.getParameter("description");
+            String url = request.getParameter("urlVideo");
+            int cateID = Integer.parseInt(request.getParameter("categoryId"));
+            Boolean res = dao.update(videoid, title, des, url, cateID);
+            response.sendRedirect("home");
+            return;
+        }
     }
 
     /**
