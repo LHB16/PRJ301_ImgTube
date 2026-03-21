@@ -46,7 +46,7 @@
                 margin: 20px 0;
             }
 
-            .title-section h2 {
+            .title-section h3 {
                 color: #0056b3;
                 font-weight: bold;
                 margin-bottom: 10px;
@@ -60,9 +60,9 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-expand-lg bg-white border-bottom py-0 sticky-top">
+        <nav class="navbar navbar-expand-lg bg-white border-bottom py-3 sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home"><i class="bi bi-camera-reels"></i> ImgTube</a>
+                <a class="navbar-brand fw-bold fs-4" href="home"><i class="bi bi-camera-reels"></i> ImgTube</a>
                 <div class="d-flex align-items-center">
                     <c:choose>
                         <c:when test="${not empty sessionScope.user}">
@@ -78,10 +78,6 @@
             </div>
         </nav>
         <div class="container mt-4">
-
-            <!--            <div class="text-center">
-                            <img src="${video.urlVideo}" width="50%" alt="Video thumbnail">
-                        </div>-->
             
             <div style="width:70%; margin: 0 auto;">
                 <div style="position:relative; width:100%; padding-top:56.25%;">
@@ -95,7 +91,7 @@
             </div>
             
             <div class="title-section">
-                <h2>${video.title}</h2>
+                <h3>${video.title}</h3>
                 <p><i class="bi bi-folder"></i> ${video.category.categoryName} | <i class="bi bi-calendar"></i> <fmt:formatDate value="${video.uploadDate}" pattern="dd/MM/yyyy"/></p>
             </div>
 
@@ -123,14 +119,14 @@
 
             <!-- Phần mô tả -->
             <div class="description-section">
-                <h3>Mô tả</h3>
+                <h4>Mô tả</h4>
                 <p>${video.description}</p>
             </div>
             <hr>
 
             <!-- Phần bình luận -->
             <div class="comment-section">
-                <h3>Bình luận (${comments.size()})</h3>
+                <h4>Bình luận (${comments.size()})</h4>
 
                 <c:choose>
                     <c:when test="${sessionScope.user != null}">

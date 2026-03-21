@@ -32,9 +32,9 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-expand-lg bg-white border-bottom py-0 sticky-top">
+        <nav class="navbar navbar-expand-lg bg-white border-bottom py-3 sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home"><i class="bi bi-camera-reels"></i> ImgTube</a>
+                <a class="navbar-brand fw-bold fs-4" href="home"><i class="bi bi-camera-reels"></i> ImgTube</a>
                 <div class="d-flex align-items-center">
                     <a href="login" class="btn btn-outline-primary btn-sm me-2">Đăng nhập</a>
                     <a href="register" class="btn btn-primary btn-sm">Đăng ký</a>
