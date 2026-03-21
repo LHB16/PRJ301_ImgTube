@@ -21,7 +21,8 @@
                 <div class="d-flex align-items-center">
                     <c:choose>
                         <c:when test="${not empty sessionScope.user}">
-                            <a href="video?id=${sessionScope.user.userId}" class="text-decoration-none">
+
+                            <a href="video?userId=${sessionScope.user.userId}" class="text-decoration-none">
                                 <span class="me-3 text-dark fw-bold">${sessionScope.user.username}</span>
                             </a>
                             <a href="logout" class="btn btn-outline-danger btn-sm">Đăng xuất</a>
@@ -56,7 +57,10 @@
 
                 <!-- Video display -->
                 <div class="col-md-10 col-lg-10">
-                    <<h2>Video nổi bật</h2>
+                    <h2>
+                        Video của bạn | <a href="video?action=add" class="btn btn-secondary">Thêm video</a>
+                        <hr class="border-dark border-3 opacity-100">
+                    </h2>
                     <div class="row g-3">
                         <c:choose>
                             <c:when test="${not empty videos}">

@@ -41,38 +41,37 @@
                         <h2>Thêm Video Mới</h2>
                         <hr>
 
-                        <form action="video?action=add" method="POST">
+                        <form action="video?action=update&id=${video.videoId}" method="POST">
 
                             <div class="mb-3">
                                 <label class="form-label">Tiêu đề video:</label>
-                                <input type="text" name="title" class="form-control" placeholder="Nhập tiêu đề..."
-                                    required>
+                                <input type="text" class="form-control" name="title" value="${video.title}">
+
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Mô tả:</label>
-                                <textarea name="description" class="form-control" rows="3"
-                                    placeholder="Nhập mô tả video..."></textarea>
+                                <input type="text" class="form-control" name="description" value="${video.description}">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">URL(Internet link):</label>
-                                <input name="urlVideo" class="form-control"
-                                    placeholder="https://example.com/image.jpg" required>
+                                <input type="text" class="form-control" name="urlThumbnail"
+                                    value="${video.urlThumbnail}">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Category ID</label>
-                                <select class="form-select" name="categoryId" required>
+                                <select class="form-select" name="categoryId">
                                     <option value="" selected disabled hidden>--Select one--</option>
                                     <c:forEach items="${listCate}" var="cate">
-                                        <option value="${cate.categoryId}">${cate.categoryName}</option>
+                                        <option value="${cate.categoryId}" ${cate.categoryId==video.category.categoryId
+                                            ? 'selected' : '' }>${cate.categoryName}</option>
                                     </c:forEach>
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Đăng Video</button>
-                            <a href="home" class="btn btn-secondary">Quay lại</a>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
 
