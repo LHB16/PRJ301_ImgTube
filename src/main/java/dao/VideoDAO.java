@@ -35,38 +35,55 @@ public class VideoDAO extends DBContext {
 
     public java.util.List<Video> getAllVideos() {
         java.util.List<Video> list = new java.util.ArrayList<>();
-//        String sql = "SELECT * FROM Videos ORDER BY uploadDate DESC";
-        String sql = "SELECT        Categories.categoryID, Categories.categoryName, Users.username, Users.userID, Users.fullName, Videos.videoID, Videos.title, Videos.description, Videos.urlVideo, Videos.uploadDate, Videos.status\n"
-                + "FROM            Categories INNER JOIN\n"
-                + "                         Videos ON Categories.categoryID = Videos.categoryID INNER JOIN\n"
-                + "                         Users ON Videos.userID = Users.userID\n"
-                + "ORDER BY Videos.uploadDate DESC";
+        // First, check if we can connect to database
         try {
+            // Test basic connection
+            java.sql.Statement stmt = conn.createStatement();
+            java.sql.ResultSet rsTest = stmt.executeQuery("SELECT COUNT(*) as count FROM Videos");
+            if (rsTest.next()) {
+                System.out.println("DEBUG: Total videos in database: " + rsTest.getInt("count"));
+            }
+            rsTest.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.out.println("DEBUG: Cannot connect to Videos table: ");
+            e.printStackTrace();
+            return list; // Return empty list if can't connect
+        }
+
+        // Use the correct column name from SQL file
+        String sql = "SELECT Videos.*, Users.fullName\n"
+                + "FROM     Users INNER JOIN\n"
+                + "                  Videos ON Users.userID = Videos.userID";
+        try {
+            System.out.println("DEBUG: Connection is null: " + (conn == null));
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            int count = 0;
             while (rs.next()) {
+                count++;
 
                 User user = new User();
                 user.setUserId(rs.getInt("userID"));
-                user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullname"));
+                user.setFullName(rs.getString("fullName"));
+
                 Category cat = new Category();
                 cat.setCategoryId(rs.getInt("categoryID"));
-                cat.setCategoryName(rs.getString("categoryName"));
 
                 Video video = new Video();
                 video.setVideoId(rs.getInt("videoID"));
                 video.setTitle(rs.getString("title"));
                 video.setDescription(rs.getString("description"));
-                video.setUrlVideo(rs.getString("urlVideo"));
+                video.setUrlVideo(rs.getString("urlVideo")); // Column name is correct per SQL file
                 video.setUploadDate(rs.getDate("uploadDate"));
                 video.setStatus(rs.getInt("status"));
                 video.setUser(user);
                 video.setCategory(cat);
                 list.add(video);
-//                return video;
             }
+            System.out.println("DEBUG: Found " + count + " videos in database");
         } catch (Exception e) {
+            System.out.println("DEBUG: Error in getAllVideos: ");
             e.printStackTrace();
         }
         return list;
