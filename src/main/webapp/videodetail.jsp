@@ -66,7 +66,9 @@
                 <div class="d-flex align-items-center">
                     <c:choose>
                         <c:when test="${not empty sessionScope.user}">
-                            <span class="me-3 text-dark fw-bold">${sessionScope.user.username}</span>
+                            <a href="video?id=${sessionScope.user.userId}" class="text-decoration-none">
+                                <span class="me-3 text-dark fw-bold">${sessionScope.user.username}</span>
+                            </a>
                             <a href="logout" class="btn btn-outline-danger btn-sm">Đăng xuất</a>
                         </c:when>
                         <c:otherwise>
@@ -78,7 +80,7 @@
             </div>
         </nav>
         <div class="container mt-4">
-            
+
             <div style="width:70%; margin: 0 auto;">
                 <div style="position:relative; width:100%; padding-top:56.25%;">
                     <iframe
@@ -89,7 +91,7 @@
                     </iframe>
                 </div>
             </div>
-            
+
             <div class="title-section">
                 <h3>${video.title}</h3>
                 <p><i class="bi bi-folder"></i> ${video.category.categoryName} | <i class="bi bi-calendar"></i> <fmt:formatDate value="${video.uploadDate}" pattern="dd/MM/yyyy"/></p>

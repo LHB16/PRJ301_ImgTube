@@ -22,7 +22,7 @@
                     <c:choose>
                         <c:when test="${not empty sessionScope.user}">
 
-                            <a href="video?userId=${sessionScope.user.userId}" class="text-decoration-none">
+                            <a href="video?id=${sessionScope.user.userId}" class="text-decoration-none">
                                 <span class="me-3 text-dark fw-bold">${sessionScope.user.username}</span>
                             </a>
                             <a href="logout" class="btn btn-outline-danger btn-sm">Đăng xuất</a>
@@ -39,21 +39,6 @@
         <!-- Nội dung chính -->
         <div class="container-fluid mt-3">
             <div class="row">
-                <!-- Sidebar danh mục -->
-                <div class="col-md-2 col-lg-2 sidebar">
-                    <ul class="nav flex-column">
-                        <li class="nav-item mt-2">
-                            <span class="nav-link text-uppercase fw-bold text-secondary">Danh mục</span>
-                        </li> 
-                        <c:forEach items="${categories}" var="cat">
-                            <li class="nav-item">
-                                <a class="nav-link fw-bold" href="category?id=${cat.categoryId}">
-                                    <i class="bi bi-tag"></i> ${cat.categoryName}
-                                </a>
-                            </li>
-                        </c:forEach>
-                    </ul>
-                </div>
 
                 <!-- Video display -->
                 <div class="col-md-10 col-lg-10">
@@ -81,7 +66,10 @@
                                                     <i class="bi bi-calendar3"></i> ${video.uploadDate}
                                                     <br>
                                                     <a href="video?action=update&videoid=${video.videoId}" class="btn btn-warning btn-sm">
-                                                        <i class="bi bi-brush me-1"></i> Chỉnh sửa
+                                                        <i class="bi bi-brush me-1">Chỉnh sửa</i>
+                                                    </a>
+                                                    <a href="video?action=delete&videoid=${video.videoId}">
+                                                        <i class="btn btn-outline-danger">Xóa</i>
                                                     </a>
                                                 </div>
                                             </div>

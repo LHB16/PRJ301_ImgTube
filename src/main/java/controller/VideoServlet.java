@@ -66,12 +66,12 @@ public class VideoServlet extends HttpServlet {
             throws ServletException, IOException {
         CategoryDAO daoCate = new CategoryDAO();
         VideoDAO daoVideo = new VideoDAO();
-        
+
         String action = request.getParameter("action");
         if (request.getParameter("id") != null) {
             int userId = Integer.parseInt(request.getParameter("id"));
             request.setAttribute("videos", daoVideo.getActiveVideosByID(userId));
-            request.setAttribute("categories", daoCate.getAllCategories());
+//            request.setAttribute("categories", daoCate.getAllCategories());
             request.getRequestDispatcher("videouser.jsp").forward(request, response);
             return;
         }
@@ -86,8 +86,8 @@ public class VideoServlet extends HttpServlet {
             request.getRequestDispatcher("addvideo.jsp").forward(request, response);
             return;
         }
-        
-        if(action.equalsIgnoreCase("update")){
+
+        if (action.equalsIgnoreCase("update")) {
             int videoid = Integer.parseInt(request.getParameter("videoid"));
             Video video = daoVideo.getVideoById(videoid);
             List<Category> listCate = daoCate.getAllCategories();
@@ -95,6 +95,13 @@ public class VideoServlet extends HttpServlet {
             request.setAttribute("video", video);
             request.getRequestDispatcher("updatevideo.jsp").forward(request, response);
             return;
+        }
+
+        if (action.equalsIgnoreCase("delete")) {
+            int videoid = Integer.parseInt(request.getParameter("videoid"));
+            Video video = daoVideo.getVideoById(videoid);
+            request.setAttribute("video", video);
+            request.getRequestDispatcher("deletevideo.jsp").forward(request, response);
         }
     }
 
@@ -133,6 +140,13 @@ public class VideoServlet extends HttpServlet {
             String url = request.getParameter("urlVideo");
             int cateID = Integer.parseInt(request.getParameter("categoryId"));
             Boolean res = dao.update(videoid, title, des, url, cateID);
+            response.sendRedirect("home");
+            return;
+        }
+
+        if (action.equalsIgnoreCase("delete")) {
+            int videoid = Integer.parseInt(request.getParameter("videoid"));
+            Boolean res = dao.delete(videoid);
             response.sendRedirect("home");
             return;
         }

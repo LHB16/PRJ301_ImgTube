@@ -38,7 +38,7 @@
                     </nav>
 
                     <div class="container mt-5">
-                        <h2>Thêm Video Mới</h2>
+                        <h2>Cập Nhật Video</h2>
                         <hr>
 
                         <form action="video?action=update&videoid=${video.videoId}" method="POST">
@@ -70,7 +70,8 @@
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                            <a href="video?id=${sessionScope.user.userId}" class="btn btn-secondary">Quay lại</a>
                         </form>
                     </div>
 
