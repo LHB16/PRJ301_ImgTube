@@ -58,6 +58,12 @@
                                 <i class="bi bi-exclamation-triangle"></i> ${errorMsg}
                             </div>
                         </c:if>
+                        <!-- thông báo thành công -->
+                        <c:if test="${not empty complete}">
+                            <div class="alert alert-info" role="alert">
+                                <i class="bi bi-check"></i> ${complete}
+                            </div>
+                        </c:if>
 
                         <form method="post" action="login">
                             <input type="hidden" name="redirect" value="<c:out value="${param.redirect}"/>">
