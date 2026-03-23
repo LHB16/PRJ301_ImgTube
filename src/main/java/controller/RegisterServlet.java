@@ -81,7 +81,8 @@ public class RegisterServlet extends HttpServlet {
         boolean success = dao.register(username, password, fullName, email);
 
         if (success) {
-            response.sendRedirect("login");
+            request.setAttribute("complete", "Đăng ký thành công!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             request.setAttribute("error", "Email already exists!");
             request.getRequestDispatcher("register.jsp").forward(request, response);
