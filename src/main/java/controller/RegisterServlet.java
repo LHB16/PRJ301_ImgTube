@@ -98,7 +98,7 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("complete", "Đăng ký thành công!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            request.setAttribute("error", "Email already exists!");
+            request.setAttribute("error", "Email đã được đăng ký!");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }
